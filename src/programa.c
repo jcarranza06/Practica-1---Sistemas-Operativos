@@ -5,7 +5,7 @@
 //se incluyen archivos de imports
 #include "../imports/interfaz.h"
 #include "../imports/metodosCSV.h"
-
+#include "../imports/hashTable.h"
 int main()
 {
     int seleccion;
@@ -14,6 +14,19 @@ int main()
     //ejemplo del uso de metodos.csv
     /*struct fila row = leerCSV("../data/bogota-cadastral-2019-3-All-HourlyAggregate1.csv", 1000000);
     printFila(row);*/
+
+    //ejemplo de guarar tabla hash
+    //insert(963258, 10);
+    /*insert(116011602, 35);
+    int i ;
+    for(i=0; i< 1000000; i++){
+        insert(i, i);
+    }
+    saveHashTable("tablahash.a");*/
+
+    //ejemplo de cargar tabla hash
+    /*loadHashTable("tablahash.a");
+    printf("resultado: %d\n", *search(530456));*/
 
     while (seleccion!=5)
     {   // se imprime el menú y se pide la opcion del usuario 
