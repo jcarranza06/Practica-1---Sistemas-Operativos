@@ -10,10 +10,11 @@ struct fila
     float standard_deviation_travel_time;
     float geometric_mean_travel_time;
     float geometric_standard_deviation_travel_time;
+    int next;
 };
 
 void printFila(struct fila row){
-    printf("elem: %d, %d, %d, %f, %f, %f, %f\n", row.sourceid, row.dstid, row.hod, row.mean_travel_time, row.standard_deviation_travel_time, row.geometric_mean_travel_time, row.geometric_standard_deviation_travel_time);
+    printf("elem: %d, %d, %d, %f, %f, %f, %f, %d\n", row.sourceid, row.dstid, row.hod, row.mean_travel_time, row.standard_deviation_travel_time, row.geometric_mean_travel_time, row.geometric_standard_deviation_travel_time, row.next);
 }
 
 // string (string) lleva el buffer del archivo csv para extraer cada elemento 
@@ -28,6 +29,7 @@ struct fila crearFila(char string[])
     row.standard_deviation_travel_time = atof(strtok(NULL, ","));
     row.geometric_mean_travel_time = atof(strtok(NULL, ","));
     row.geometric_standard_deviation_travel_time = atof(strtok(NULL, ","));
+    row.next = atoi(strtok(NULL, ","));
 
     return row;
 }
@@ -44,7 +46,7 @@ struct fila leerCSV(char direccionArchivo[], int index)
     // get para los elementos de la cabecera, tambien se mueve el apuntador a el primer elemento (fila 0) de las lista
     fgets(buffer, sizeof(buffer), pInput);
     //se mueve el apuntador a la direccion donde se encuentra el primer elemento de la fila [index] esto tiene en cuenta que cada fila ocupe 44 bytes
-    fseek(pInput,index*44,SEEK_CUR);
+    fseek(pInput,index*52,SEEK_CUR);
     //se obtiene guarda en buffer el elemento a buscar
     fgets(buffer, sizeof(buffer), pInput);
     // se crea la estructura
