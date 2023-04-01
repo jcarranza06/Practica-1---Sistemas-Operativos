@@ -75,10 +75,11 @@ int main()
             busqueda.hora = ingresarHora();
             break;
         case 4:
+            // se mide tambien el tiempo, bein guarda tiempo inical
             begin = clock();
             realizarBusqueda(busqueda);
-            end = clock();
-            time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+            end = clock();// guarda toiempo final
+            time_spent += (double)(end - begin) / CLOCKS_PER_SEC; // se pasa tiempo a segundos
             printf("La busqueda toma %f segundos \n", time_spent);
             break;
         default: 
