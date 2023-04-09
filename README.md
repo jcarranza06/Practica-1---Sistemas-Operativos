@@ -8,4 +8,10 @@ el archivo data/bogota-cadastral-2019-3-All-HourlyAggregate1.csv es generado por
 Despues es necesario "data/tablahash.c" que almacena el indice del ultimo elemento de cada combinacion id source y iddest de la tabla.
 este archivo es generado por "src/crearTablaHash.c"
 
-el porgrama está en "src/programa.c"
+el programa se ejecuta en el proceso generado inicia.c por el cual inicia el proceso generado por busqueda.c el cual se debe llamar busqueda.
+El proceso "inicia" ejecuta la interfaz de usuario y tambien manda por medio de named pipes los datos de la busqueda a el porceso "busqueda"
+el cual realiza la busqueda y devuelve el resultado al porceso "inicia".
+
+el programa en un solo proceso está en "src/programa.c"
+
+
