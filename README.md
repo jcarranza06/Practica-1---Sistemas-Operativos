@@ -14,4 +14,4 @@ el cual realiza la busqueda y devuelve el resultado al porceso "inicia".
 
 el programa en un solo proceso está en "src/programa.c"
 
-
+el archivo Makefile crea la hashtTable y compila los archivos de proceso e inicia, este se puede inicar desde la linea de comandos con "make", comando el cual llama el objetivo "all" que compila lo necesario 
