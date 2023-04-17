@@ -53,11 +53,16 @@ int main(void)
             sprintf(identifier, "%04d", busqueda.destino); // se concatenan busqueda origen y destino
             strcat(modified_identifier, identifier);
 
-            int index = *search(atoi(modified_identifier));                                               // indice del ultimo elemnto con el origen y destino especificado
-            struct fila row = leerCSV("../data/bogota-cadastral-2019-3-All-HourlyAggregate1.csv", index); // se busca el indice en el archivo
-            while (row.next > 0 && row.hod != busqueda.hora)                                              // mientras se llega al ultimo de la lsita o se encuentra la hora sigue buscando
+            int index = (search(atoi(modified_identifier)))==NULL?-1:*search(atoi(modified_identifier)); //se verifica que la busqueda no haya dado error al no dar un indice dentro del rango                                               // indice del ultimo elemnto con el origen y destino especificado
+            struct fila row;
+            if (index >= 0 ){
+            row = leerCSV("../data/bogota-cadastral-2019-3-All-HourlyAggregate1.csv", index); // se busca el indice en el archivo
+            while (row.next > 0 && row.hod != busqueda.hora)       // mientras se llega al ultimo de la lsita o se encuentra la hora sigue buscando
             {
                 row = leerCSV("../data/bogota-cadastral-2019-3-All-HourlyAggregate1.csv", row.next); 
+            }
+            }else{ row.hod =-1;
+
             }
 
             if (row.hod == busqueda.hora)
