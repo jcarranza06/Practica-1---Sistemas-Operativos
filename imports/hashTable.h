@@ -71,6 +71,7 @@ int *search(int key)
 {
     int index = hashFunction(key);     // Calcula el índice de la tabla para el key dado
     HashNode *node = hashTable[index]; // Obtiene el primer nodo en ese índice
+    if (node != NULL){                  // Se verifica en la lista enlazada si el nodo contiene algún valor o se concluye que está fuera del rango
     while (node != NULL)
     { // Recorre la lista de nodos en ese índice
         if (node->key == key)
@@ -79,7 +80,8 @@ int *search(int key)
         }
         node = node->next; // Avanza al siguiente nodo en la lista
     }
-    return NULL; // Retorna NULL si la key no se encontró en la tabla hash
+    }
+    return NULL; // Retorna NULL si la key no se encontró en la tabla hash 
 }
 
 void destroy()
