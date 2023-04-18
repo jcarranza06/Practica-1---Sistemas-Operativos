@@ -51,7 +51,7 @@ int ingresarHora(){
     do {
         printf("Ingrese hora del día: ");
         scanf("%d", &hora);
-        if (hora < 1 || hora > 24) {
+        if (hora < 1 || hora > 23) {
         printf("El valor de hora no es válido.\n");
     }
     } while (hora < 1 || hora > 24);
