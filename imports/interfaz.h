@@ -14,22 +14,47 @@ int seleccionarOpcion()
 
 int ingresarOrigen(){
     int origen;
-    printf("Ingrese ID del origen: ");
-    scanf("%d", &origen);
+    //printf("Ingrese ID del origen: ");
+    //scanf("%d", &origen);
+    //return origen;
+    do {
+        printf("Ingrese ID del origen: ");
+        scanf("%d", &origen);
+        if (origen < 1 || origen > 1160) {
+        printf("El valor de origen no es válido.\n");
+    }
+    } while (origen < 1 || origen > 1160);
     return origen;
+  
 }
 
 int ingresarDestino(){
     int destino;
-    printf("Ingrese ID del destino: ");
-    scanf("%d", &destino);
+    //printf("Ingrese ID del destino: ");
+    //scanf("%d", &destino);
+    //return destino;
+    do {
+        printf("Ingrese ID del destino: ");
+        scanf("%d", &destino);
+        if (destino < 1 || destino > 1160) {
+        printf("El valor de destino no es válido.\n");
+    }
+    } while (destino < 1 || destino > 1160);
     return destino;
 }
 
 int ingresarHora(){
     int hora;
-    printf("Ingrese hora del dia: ");
-    scanf("%d", &hora);
+    //printf("Ingrese hora del dia: ");
+    //scanf("%d", &hora);
+    //return hora;
+    do {
+        printf("Ingrese hora del día: ");
+        scanf("%d", &hora);
+        if (hora < 1 || hora > 24) {
+        printf("El valor de hora no es válido.\n");
+    }
+    } while (hora < 1 || hora > 24);
     return hora;
 }
 
