@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -47,28 +49,24 @@ int main()
     r = bind(serverfd, (struct sockaddr *)&server, sizeof(struct sockaddr));
     if (r < 0)
     {
-
         perror("\n Error en bind ");
-
         exit(-1);
     }
 
     r = listen(serverfd, BACKLOG);
+    
     if (r < 0)
     {
-
         perror("\n Error en listen ");
-
         exit(-1);
     }
     while (1)
     {
         clientfd = accept(serverfd, (struct sockaddr *)&client, &tamano);
+        printf("accept \n");
         if (clientfd < 0)
         {
-
             perror("\n Error en accept ");
-
             exit(-1);
         }
         r = recv(clientfd, buffer, 32, 0);

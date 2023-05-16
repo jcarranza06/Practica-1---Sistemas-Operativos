@@ -61,6 +61,9 @@ int main(int argc, char *argv[])
     a.hora = 5;
     char *peticionString = peticionToString(a);
 
+    int seleccion;
+    scanf("%d", &seleccion);
+
     r = send(clientfd, peticionString, 11, 0);
     if (r < 0)
     {

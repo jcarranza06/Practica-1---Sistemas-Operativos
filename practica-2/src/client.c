@@ -1,3 +1,9 @@
+/*
+se compila con gcc client.c -o client
+para ejecutar: ./client [direccion de dominio de servidor] 
+ej ejecutar con localhost: ./client 127.0.0.1
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
