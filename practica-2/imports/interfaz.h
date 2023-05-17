@@ -1,7 +1,10 @@
-struct peticion {   // en esta estructura se va a guardar la informacion para la busqueda
-  int origen;           
-  int destino;
-  int hora;       
+struct peticion
+{ // en esta estructura se va a guardar la informacion para la busqueda
+    char ipStr[INET_ADDRSTRLEN];  
+    char* date;
+    int origen;
+    int destino;
+    int hora;
 };
 
 int seleccionarOpcion()

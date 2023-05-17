@@ -15,6 +15,7 @@ se compila con gcc server.c -o server -pthread
 #include <stdbool.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <time.h>
 
 #include "../imports/interfaz.h"
 #include "../imports/metodosCSV.h"
@@ -22,6 +23,7 @@ se compila con gcc server.c -o server -pthread
 
 #define PORT 3535
 #define BACKLOG 2
+#define MAX_BUFFER_SIZE 100
 
 int serverfd, r, *rh0, opt = 1;
 //int clientfd;
@@ -95,6 +97,60 @@ pthread_t pop(Stack *stack)
 }
 
 
+char* peticionToString(struct peticion p) {
+    // Buffer para almacenar la cadena resultante
+    char* buffer = (char*)malloc(sizeof(char) * MAX_BUFFER_SIZE);
+
+    // Construir la cadena utilizando snprintf
+    snprintf(buffer, MAX_BUFFER_SIZE, "%s Cliente %s, Origen: %d, Destino: %d, Hora: %d \n",
+             p.date, p.ipStr, p.origen, p.destino, p.hora);
+
+    return buffer;
+}
+
+char* getDate() {
+    time_t t = time(NULL);
+    struct tm tiempoLocal = *localtime(&t);
+
+    // El formato. Mira más en https://en.cppreference.com/w/c/chrono/strftime
+    char formato[] = "%Y%m%d%H%M%S";
+    // El tamaño suficiente para almacenar la fecha y hora formateadas
+    char* fechaHora = (char*)malloc(sizeof(char) * 70);
+
+    // Intentar formatear
+    int bytesEscritos = strftime(fechaHora, 70, formato, &tiempoLocal);
+    if (bytesEscritos != 0) {
+        // Si no hay error, los bytesEscritos no son 0
+        printf("Fecha y hora: %s\n", fechaHora);
+        return fechaHora;
+    } else {
+        printf("Error formateando fecha.\n");
+        free(fechaHora);
+        return NULL;
+    }
+}
+
+void appendToFile(const char *filename, const char *string)
+{
+    FILE *file = fopen(filename, "a"); // Abrir el archivo en modo "append"
+
+    if (file == NULL)
+    {
+        printf("No se pudo abrir el archivo.\n");
+        return;
+    }
+
+    fprintf(file, "%s", string); // Escribir el string en el archivo
+
+    fclose(file); // Cerrar el archivo
+}
+
+void saveConsulta(struct peticion consulta){
+    char* peticionStr = peticionToString(consulta);
+    appendToFile("log.txt", peticionStr);
+}
+
+
 struct peticion getPeticion(char *str)
 {
     struct peticion a;
@@ -138,12 +194,14 @@ void realizarBusqueda(char buffer[], int clientfd)
 
     struct peticion busqueda = getPeticion(buffer); // se convierte el mensaje en una estructura
     printf("%d %d %d\n", busqueda.origen, busqueda.destino, busqueda.hora);
-
+    
     struct in_addr clientIp = client.sin_addr;              // se extrae la ip de cliente
     char ipStr[INET_ADDRSTRLEN];                            // se declara string de size INET_ADDRSTRLEN
     inet_ntop(AF_INET, &clientIp, buffer, INET_ADDRSTRLEN); // se pasa de binario a string
     printf("\n mensaje leido de fs: %s \n", buffer);
-
+    strcpy(busqueda.ipStr, buffer);
+    busqueda.date = getDate();
+    saveConsulta(busqueda);
     char modified_identifier[30] = ""; // linea de identificador
     char identifier[8] = "";
     sprintf(identifier, "%04d", busqueda.origen);
