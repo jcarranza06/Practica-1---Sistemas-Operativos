@@ -137,6 +137,13 @@ int main(int argc, char *argv[])
             // write(fdSolicitud, buf, sizeof(buf)); // se pasa 0 para la variabla continuar de proceso busqueda, para que este acabe el while y finalice
             printf("SALIENDO\n");
             seleccion = 5;
+            r = send(clientfd, "0", 11, 0);
+            if (r < 0)
+            {
+                perror("\n Error en send ");
+                exit(-1);
+            }
+
             break;
         }
         printBusqueda(busqueda);
